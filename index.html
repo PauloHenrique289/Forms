@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Nomes em Array</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 2px 2px 12px rgba(0,0,0,0.1);
+        }
+        form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 8px;
+            font-size: 16px;
+        }
+        button {
+            padding: 8px 16px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        ul {
+            list-style-type: square;
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Lista de Nomes (Array)</h2>
+
+    <!-- Formulário para digitação e envio -->
+    <form id="meuFormulario">
+        <input type="text" id="campoNome" placeholder="Digite um novo nome..." required>
+        <button type="submit">Adicionar</button>
+    </form>
+
+    <h3>Nomes Cadastrados:</h3>
+    <!-- Lista HTML onde os nomes do Array serão exibidos -->
+    <ul id="listaDeNomes"></ul>
+
+    <script>
+        // 1. Inicializando o Array com o Nome do Aluno
+        const nomes = ["Paulo Henrique de Souza Lima"];
+
+        // Elementos do DOM
+        const formulario = document.getElementById('meuFormulario');
+        const campoNome = document.getElementById('campoNome');
+        const listaDeNomes = document.getElementById('listaDeNomes');
+
+        // 2. Função para atualizar a visualização da lista no HTML
+        function atualizarLista() {
+            // Limpa o conteúdo atual da <ul>
+            listaDeNomes.innerHTML = '';
+
+            // Percorre o array 'nomes' e cria uma <li> para cada item
+            nomes.forEach(function(nome) {
+                const li = document.createElement('li');
+                li.textContent = nome;
+                listaDeNomes.appendChild(li);
+            });
+        }
+
+        // 3. Evento para interceptar o envio do formulário
+        formulario.addEventListener('submit', function(event) {
+            // Impede o recarregamento padrão da página ao enviar o form
+            event.preventDefault();
+
+            // Pega o valor digitado e remove espaços extras do começo e do fim
+            const novoNome = campoNome.value.trim();
+
+            if (novoNome !== '') {
+                // Adiciona o novo nome no final do array
+                nomes.push(novoNome);
+
+                // Atualiza a exibição na tela
+                atualizarLista();
+
+                // Limpa o campo de texto do input
+                campoNome.value = '';
+            }
+        });
+
+        // Executa a função ao carregar a página para exibir o "Nome do Aluno" inicial
+        atualizarLista();
+    </script>
+
+</body>
+</html>
